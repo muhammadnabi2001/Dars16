@@ -117,6 +117,6 @@ class Authcontroller
     public function logout()
     {
         unset($_SESSION['Auth']);
-        header("location: /login");
+        header("location: /index");
     }
 }

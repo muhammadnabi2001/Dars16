@@ -108,4 +108,11 @@ class Model extends Database
         $stmt = $db->query("SELECT * FROM " . static::$table . " WHERE {$cleanedString}");
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
+    public static function taskall($status)
+    {
+        $sql = "SELECT task.id,task.title,task.description,task.img,task.user_id,task.status,users.name from task LEFT JOIN users ON task.user_id=users.id WHERE task.status='{$status}'";
+        $query = self::connect()->query($sql);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

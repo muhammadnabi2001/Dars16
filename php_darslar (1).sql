@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 16, 2024 at 06:08 AM
+-- Generation Time: Oct 16, 2024 at 02:48 PM
 -- Server version: 8.0.39
 -- PHP Version: 8.2.12
 
@@ -522,7 +522,7 @@ CREATE TABLE `task` (
   `description` varchar(255) NOT NULL,
   `img` varchar(255) NOT NULL,
   `user_id` int NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL DEFAULT '0',
   `comment` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -531,18 +531,20 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `title`, `description`, `img`, `user_id`, `status`, `comment`) VALUES
-(1, 'Homework', 'User va amdin uchun task crud va acception', '2024-10-15_22-43-08.jpg', 10, '2', ''),
+(1, 'Homework', 'User va amdin uchun task crud va acception', '2024-10-15_22-43-08.jpg', 10, '4', ''),
 (2, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-46-51.jpg', 12, '1', ''),
 (3, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-53-52.jpg', 12, '1', ''),
 (4, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-55-57.jpg', 12, '1', ''),
 (5, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-56-34.jpg', 12, '1', ''),
-(6, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-56-52.jpg', 12, '1', ''),
+(6, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-56-52.jpg', 12, '3', ''),
 (7, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-58-08.jpg', 12, '1', ''),
-(8, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-37.jpg', 12, '1', ''),
+(8, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-37.jpg', 12, '3', ''),
 (9, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-44.jpg', 12, '1', ''),
-(10, 'Takrorlash', 'Barcha urganganlarimizni takrorlab qaytadan bajarib uzimizni sinash', '2024-10-15_23-03-43.jpg', 11, '3', ''),
+(10, 'Takrorlash', 'Barcha urganganlarimizni takrorlab qaytadan bajarib uzimizni sinash', '2024-10-15_23-03-43.jpg', 11, '4', ''),
 (11, 'Laravel', 'Laravelni boshlash uchun MVC kodni tushunib yozish', '2024-10-15_23-06-15.jpg', 15, '2', ''),
-(12, 'Revise', 'Revie all php functions which we learned during the course', '2024-10-15_23-09-04.jpg', 13, '1', '');
+(12, 'Revise', 'Revie all php functions which we learned during the course', '2024-10-15_23-09-04.jpg', 13, '1', ''),
+(13, 'Task title', 'Here is some description for task', '2024-10-16_14-06-49.jpg', 13, '1', ''),
+(14, 'uxla', 'Vaqtliroq uxla ertalaba vaqtli kel', '2024-10-16_14-09-46.jpg', 16, '1', '');
 
 -- --------------------------------------------------------
 
@@ -568,7 +570,8 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `status`, `role`) VALUES
 (11, 'Someone', 'user@gmail.com', '202cb962ac59075b964b07152d234b70', 'user', 0),
 (12, 'Shermuhammad', 'sher@gmail.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 0),
 (13, 'Muhammadnabi Xoliqulov', 'xmb@gmail.com', '934b535800b1cba8f96a5d72f72f1611', 'user', 0),
-(15, 'jjj', 'xmwb@gmail.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 0);
+(15, 'jjj', 'xmwb@gmail.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 0),
+(16, 'Asadbek', 'asad@gmail.com', 'b59c67bf196a4758191e42f76670ceba', 'user', 0);
 
 --
 -- Indexes for dumped tables
@@ -667,13 +670,13 @@ ALTER TABLE `talabalar`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

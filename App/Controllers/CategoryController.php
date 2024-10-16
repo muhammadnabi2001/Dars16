@@ -25,5 +25,8 @@ class CategoryController
         $janrlar = $st->fetchAll(PDO::FETCH_ASSOC);
         return view('janrlar', 'janrlar', $janrlar);
     }
-    
+    public function logout()
+    {
+        return view('index','Login');
+    }
 }

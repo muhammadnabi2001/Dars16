@@ -35,6 +35,7 @@
           <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="remember">
+              <a href="/register">Register</a>
             </div>
           </div>
           <!-- /.col -->

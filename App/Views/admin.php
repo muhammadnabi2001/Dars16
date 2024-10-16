@@ -83,7 +83,7 @@
             <img src="App/Views/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">Admin</a>
           </div>
         </div>
 
@@ -105,22 +105,9 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Admin
-                  <i class="right fas fa-angle-left"></i>
-                </p>
+              <a href="/logout" class="nav-link active">
+                Logout
               </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="./index.html" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Admin</p>
-                  </a>
-                </li>
-
-              </ul>
             </li>
 
 
@@ -149,14 +136,19 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                  <?php
 
-                  <p>New Orders</p>
+                  use App\Models\Task;
+
+                  $count = count(Task::taskall(1));
+                  ?>
+                  <h3><?php echo $count; ?></h3>
+                  <p>Topshiriq berilganlar soni <?php echo $count; ?> ta</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/admin?task1=1" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -164,14 +156,17 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <?php
+                  $count1 = count(Task::taskall(2));
+                  ?>
+                  <h3><?php echo $count1; ?><sup style="font-size: 20px"></sup></h3>
 
-                  <p>Bounce Rate</p>
+                  <p>Vazifa qabul qilganlar soni <?php echo $count1; ?> ta</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/admin?task2=2" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -179,14 +174,17 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
+                  <?php
+                  $count2 = count(Task::taskall(3));
+                  ?>
+                  <h3><?php echo $count2 ?></h3>
 
-                  <p>User Registrations</p>
+                  <p>Progress <?php echo $count2?></p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/admin?task3=3" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -194,14 +192,17 @@
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>65</h3>
+                  <?php
+                  $count3 = count(Task::taskall(4));
+                  ?>
+                  <h3><?php echo $count3; ?></h3>
 
-                  <p>Unique Visitors</p>
+                  <p>Kutilyotganlar soni <?php echo $count3; ?> ta</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="/admin?task4=4" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -240,7 +241,7 @@
                         <select class="form-select" aria-label="Default select example" name="user_id">
                           <?php
 
-                          use App\Models\Task;
+
                           use App\Models\User;
 
                           $users = User::all();
@@ -272,21 +273,49 @@
                   <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Title</th>
                   <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Description</th>
                   <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Image</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">User ID</th>
+                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Users</th>
                   <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Status</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Comment</th>
                 </tr>
                 <?php
-                $tasks = Task::all();
+                if (isset($_GET['task1'])) {
+                  $tasks = Task::taskall(1);
+                } elseif (isset($_GET['task2'])) {
+                  $tasks = Task::taskall(2);
+                } elseif (isset($_GET['task3'])) {
+                  $tasks = Task::taskall(3);
+                } elseif (isset($_GET['task4'])) {
+                  $tasks = Task::taskall(4);
+                } else {
+                  $tasks = Task::taskall(1);
+                }
                 foreach ($tasks as $task) { ?>
                   <tr>
-                    <td style="border: 1px solid black; padding: 10px;"><?=$task['id']?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?=$task['title']?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?=$task['description']?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><img src="<?php echo "rasm/".$task['img']?>" width="100px"></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?=$task['user_id']?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?=$task['status']?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?=$task['comment']?></td>
+                    <td style="border: 1px solid black; padding: 10px;"><?= $task['id'] ?></td>
+                    <td style="border: 1px solid black; padding: 10px;"><?= $task['title'] ?></td>
+                    <td style="border: 1px solid black; padding: 10px;"><?= $task['description'] ?></td>
+                    <td style="border: 1px solid black; padding: 10px;"><img src="<?php echo "rasm/" . $task['img'] ?>" width="100px"></td>
+                    <td style="border: 1px solid black; padding: 10px;"><?= $task['name'] ?></td>
+                    <td style="border: 1px solid black; padding: 10px;">
+                      <?php
+                      // Rangni statusga qarab belgilash
+                      $color = ($task['status'] == 1) ? '#2196F3' : (($task['status'] == 2) ? '#FFC107' : (($task['status'] == 3) ? '#4CAF50' : '#FF5722'));
+                      ?>
+
+                      <span style="
+    background-color: <?php echo $color; ?>; /* Statusga qarab fon rangi */
+    color: white; /* Oq rangli matn */
+    padding: 5px 10px; /* Ichki chekka (padding) */
+    border-radius: 5px; /* Burchaklarni yumaloqlash */
+    text-align: center; /* Matnni markazlash */
+    display: inline-block; /* Elementning tugma ko'rinishda bo'lishi uchun */
+  ">
+                        <?php
+                        echo ($task['status'] == 1) ? 'Vazifa berilgan' : (($task['status'] == 2) ? 'Qabul qilingan' : (($task['status'] == 3) ? 'Topshirilgan' : 'Jarayonda'));
+                        ?>
+                      </span>
+                    </td>
+
+
                   </tr>
 
                 <?php }

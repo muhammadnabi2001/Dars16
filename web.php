@@ -30,4 +30,4 @@ Route::get('/admin', [Authcontroller::class, 'admin']);
 Route::post('/task', [Authcontroller::class, 'task']);
 Route::get('/user', [Authcontroller::class, 'userpage']);
 Route::post('/user', [Authcontroller::class, 'userpage']);
-Route::post('/logout', [CategoryController::class, 'logout']);
+Route::get('/logout', [CategoryController::class, 'logout']);

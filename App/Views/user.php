@@ -92,7 +92,7 @@ if (!isset($_SESSION['Auth'])) {
                with font-awesome or any other icon font library -->
 
             <li class="nav-item">
-              <a href="/login" class="nav-link active">
+              <a href="/logout" class="nav-link active">
                 <i class="nav-icon fas fa-columns"></i>
                 <p>
                   Logout
