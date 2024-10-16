@@ -27,6 +27,7 @@ Route::get('/register', [Authcontroller::class, 'registerPage']);
 Route::post('/register', [Authcontroller::class, 'register']);
 Route::post('/admin', [Authcontroller::class, 'admin']);
 Route::get('/admin', [Authcontroller::class, 'admin']);
-Route::get('/task', [Authcontroller::class, 'taskpage']);
+Route::post('/task', [Authcontroller::class, 'task']);
 Route::get('/user', [Authcontroller::class, 'userpage']);
+Route::post('/user', [Authcontroller::class, 'userpage']);
 Route::post('/logout', [CategoryController::class, 'logout']);

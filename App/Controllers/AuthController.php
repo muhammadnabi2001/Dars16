@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Helpers\Views;
 use App\Models\User;
+use App\Models\Task;
 
 class Authcontroller
 {
@@ -16,19 +17,47 @@ class Authcontroller
         // dd(123);
         return view('auth/login', 'Login');
     }
-    public function taskpage()
+    public function task()
     {
-        // dd(123);
-        return view('task', 'Task');
+        if(isset($_POST['ok']))
+        {
+            $title=$_POST['title'];
+            $desc=$_POST['desc'];
+            $data = explode('.', $_FILES['rasm']['name']);
+            $filePath = date('Y-m-d_H-i-s') . '.' . $data[1];
+            move_uploaded_file($_FILES['rasm']['tmp_name'], 'rasm/' . $filePath);
+            $user_id=$_POST['user_id'];
+            $status=$_POST['status'];
+
+            $task=['title'=>$title,
+            'description'=>$desc,
+            'img'=>$filePath,
+            'user_id'=>$user_id,
+            'status'=>$status,
+        'comment'=>''];
+        Task::create($task);
+        header("location: /admin");
+
+        }
     }
     public function userpage()
     {
+        if(isset($_SESSION['Auth']))
+        {
+            return view('user', 'User');
+        }else
+        {
+            header("location: /login");
+        }
+    }
+    public function admin()
+    {
         // dd(123);
-        return view('user', 'User');
+        return view('admin', 'Admin');
     }
     public function registerPage()
     {
-        return view('auth/register', 'Register');
+        return view('/register', 'Register');
     }
     public function register()
     {
@@ -44,14 +73,22 @@ class Authcontroller
             if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['password1']) && isset($_POST['password2']))
             {
                 $password=md5($password1);
+
                 $data = [
                     'name'=>$_POST['name'],
                     'email' => $_POST['email'],
                     'password' => $password,
                     'status' => 'user'
                 ];
-                User::create($data);
-                header("location: /user");
+                $check=User::detect($email);
+                if($check)
+                {
+                    header("location: /register");
+                }else
+                {
+                    User::create($data);
+                    header("location: /user");
+                }
             }
         }
     }

@@ -20,6 +20,7 @@
     <div class="register-box">
         <div class="card">
             <div class="card-body register-card-body">
+            <p class="login-box-msg">Register</p>
                 <form action="/register" method="post">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Full name" name="name">

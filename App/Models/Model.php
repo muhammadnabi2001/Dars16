@@ -19,6 +19,12 @@ class Model extends Database
         $query = self::connect()->query($sql);
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+    public static function gettask($id,$status)
+    {
+        $sql = "SELECT * FROM " . static::$table . "  WHERE user_id='{$id}' and status='{$status}'";
+        $query = self::connect()->query($sql);
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
     public static function create($data)
     {
         $columns = implode(", ", array_keys($data));
@@ -43,7 +49,7 @@ class Model extends Database
 
         $cleanedString = implode(", ", $setParts);
 
-        $query = "UPDATE " . static::$table . " SET {$cleanedString} WHERE id = :id";
+        $query = "UPDATE " . static::$table . " SET {$cleanedString} WHERE user_id = :id";
 
         $params[':id'] = $id;
 
@@ -64,6 +70,15 @@ class Model extends Database
             header("location: index.php");
         } else {
             return false;
+        }
+    }
+    public static function detect($email)
+    {
+        $query = "SELECT * FROM " . static::$table . " WHERE email = '{$email}'";
+        $stat = self::connect()->query($query);
+        $data=$stat->fetchAll(PDO::FETCH_ASSOC);
+        if ($stat->execute()) {
+            return $data;
         }
     }
     public static function where($word)
