@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 16, 2024 at 02:48 PM
+-- Generation Time: Oct 17, 2024 at 06:53 AM
 -- Server version: 8.0.39
 -- PHP Version: 8.2.12
 
@@ -531,20 +531,21 @@ CREATE TABLE `task` (
 --
 
 INSERT INTO `task` (`id`, `title`, `description`, `img`, `user_id`, `status`, `comment`) VALUES
-(1, 'Homework', 'User va amdin uchun task crud va acception', '2024-10-15_22-43-08.jpg', 10, '4', ''),
-(2, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-46-51.jpg', 12, '1', ''),
-(3, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-53-52.jpg', 12, '1', ''),
-(4, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-55-57.jpg', 12, '1', ''),
+(1, 'Homework', 'User va amdin uchun task crud va acception', '2024-10-15_22-43-08.jpg', 10, '3', ''),
+(2, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-46-51.jpg', 12, '5', ''),
+(3, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-53-52.jpg', 12, '5', ''),
+(4, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-55-57.jpg', 12, '3', ''),
 (5, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-56-34.jpg', 12, '1', ''),
-(6, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-56-52.jpg', 12, '3', ''),
-(7, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-58-08.jpg', 12, '1', ''),
-(8, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-37.jpg', 12, '3', ''),
-(9, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-44.jpg', 12, '1', ''),
-(10, 'Takrorlash', 'Barcha urganganlarimizni takrorlab qaytadan bajarib uzimizni sinash', '2024-10-15_23-03-43.jpg', 11, '4', ''),
+(6, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-56-52.jpg', 12, '4', ''),
+(7, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_22-58-08.jpg', 12, '4', ''),
+(8, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-37.jpg', 12, '1', ''),
+(9, 'LastHomework', 'Utgan mavzudagi topshiriqlarni tugatish', '2024-10-15_23-00-44.jpg', 12, '4', ''),
+(10, 'Takrorlash', 'Barcha urganganlarimizni takrorlab qaytadan bajarib uzimizni sinash', '2024-10-15_23-03-43.jpg', 11, '2', ''),
 (11, 'Laravel', 'Laravelni boshlash uchun MVC kodni tushunib yozish', '2024-10-15_23-06-15.jpg', 15, '2', ''),
-(12, 'Revise', 'Revie all php functions which we learned during the course', '2024-10-15_23-09-04.jpg', 13, '1', ''),
-(13, 'Task title', 'Here is some description for task', '2024-10-16_14-06-49.jpg', 13, '1', ''),
-(14, 'uxla', 'Vaqtliroq uxla ertalaba vaqtli kel', '2024-10-16_14-09-46.jpg', 16, '1', '');
+(12, 'Revise', 'Revie all php functions which we learned during the course', '2024-10-15_23-09-04.jpg', 13, '4', ''),
+(13, 'Task title', 'Here is some description for task', '2024-10-16_14-06-49.jpg', 13, '5', ''),
+(14, 'uxla', 'Vaqtliroq uxla ertalaba vaqtli kel', '2024-10-16_14-09-46.jpg', 16, '2', ''),
+(15, 'gdfg', 'dfgd', '2024-10-16_14-53-22.jpg', 11, '2', '');
 
 -- --------------------------------------------------------
 
@@ -670,7 +671,7 @@ ALTER TABLE `talabalar`
 -- AUTO_INCREMENT for table `task`
 --
 ALTER TABLE `task`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
