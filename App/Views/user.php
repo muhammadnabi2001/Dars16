@@ -126,53 +126,67 @@ if (!isset($_SESSION['Auth'])) {
 
       <section class="content pb-3">
         <div class="container-fluid h-100">
-          <div class="card card-row card-secondary">
-            <div class="card-header">
-              <h3 class="card-title">
-                Topshiriqlar
-              </h3>
-            </div>
-            <div class="card-body">
-              <div class="card card-info card-outline">
+        <div class="container-fluid">
+    <div class="card card-row card-secondary">
+        <div class="card-header">
+            <h3 class="card-title">Topshiriqlar</h3>
+        </div>
+        <div class="card-body">
+            <div class="card card-info card-outline">
                 <div class="card-header">
-
-
-                  <h1></h1>
-                  <?php
-                  $vazifalar = Task::gettask($_SESSION['Auth']->id, 1);
-                  foreach ($vazifalar as $vazifa) { ?>
-                    <h5><?= $vazifa['title'] ?></h5>
-                    <div class="card-body">
-                      <p>
-                        <?= $vazifa['description'] ?>
-                      </p>
-                      <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
-                    </div>
-                  <?php }
-                  ?>
-                  <form action="/user" method="post">
-                    <button type="submit" name="qabul" class="btn btn-primary">Qabul qilish</button>
-                  </form>
-
+                    <h1></h1>
+                    <?php
+                    $vazifalar = Task::gettask($_SESSION['Auth']->id, 1);
+                    if (!empty($vazifalar)) { ?>
+                        <div class="table-responsive">
+                            <table class="table mb-0 w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>Rasm</th>
+                                        <th>Amallar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($vazifalar as $vazifa) { ?>
+                                        <tr>
+                                            <td><?= $vazifa['title'] ?></td>
+                                            <td><?= $vazifa['description'] ?></td>
+                                            <td>
+                                                <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
+                                            </td>
+                                            <td>
+                                                <form action="/user" method="post">
+                                                    <input type="hidden" name="task_id" value="<?= $vazifa['id'] ?>">
+                                                    <button type="submit" name="qabul" class="btn btn-success">Qabul qilish</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    <?php } else { ?>
+                        <p>Hozirda hech qanday topshiriq yo'q.</p>
+                    <?php } ?>
                 </div>
+
                 <?php
                 if (isset($_POST['qabul'])) {
-                  $data = ['status' => '2'];
-                  Task::update($data, $_SESSION['Auth']->id);
-                  header("location: /user");
+                    $task_id = $_POST['task_id'];
+                    $data = ['status' => '2'];
+                    Task::update($data, $task_id);
+                    header("location: /user");
+                    exit; // Redirectdan so'ng scriptni to'xtatish
                 }
                 ?>
-              </div>
-              <div class="card card-light card-outline">
-                <div class="card-header">
-                  <div class="card-tools">
-                    </a>
-                  </div>
-                </div>
-
-              </div>
             </div>
-          </div>
+        </div>
+    </div>
+</div>
+
+
           <div class="card card-row card-secondary">
             <div class="card-header">
               <h3 class="card-title">
@@ -182,30 +196,46 @@ if (!isset($_SESSION['Auth'])) {
             <div class="card-body">
               <div class="card card-info card-outline">
                 <div class="card-header">
-
-
                   <h1></h1>
                   <?php
                   $vazifalar = Task::gettask($_SESSION['Auth']->id, 2);
-                  foreach ($vazifalar as $vazifa) { ?>
-                    <h5><?= $vazifa['title'] ?></h5>
-                    <div class="card-body">
-                      <p>
-                        <?= $vazifa['description'] ?>
-                      </p>
-                      <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
-                    </div>
-                  <?php }
-                  ?>
-                  <form action="/user" method="post">
-                    <button type="submit" name="topshirish" class="btn btn-primary">Topshirish</button>
-                  </form>
-
+                  if (!empty($vazifalar)) { ?>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Rasm</th>
+                          <th>Amallar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php foreach ($vazifalar as $vazifa) { ?>
+                          <tr>
+                            <td><?= $vazifa['title'] ?></td>
+                            <td><?= $vazifa['description'] ?></td>
+                            <td>
+                              <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
+                            </td>
+                            <td>
+                              <form action="/user" method="post">
+                                <input type="hidden" name="task_id" value="<?= $vazifa['id'] ?>">
+                                <button type="submit" name="bajar" class="btn btn-success">Bajarish</button>
+                              </form>
+                            </td>
+                          </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  <?php } else { ?>
+                    <p>Hozirda bajarish uchun topshiriq mavjud emas!</p>
+                  <?php } ?>
                 </div>
                 <?php
-                if (isset($_POST['topshirish'])) {
+                if (isset($_POST['bajar'])) {
+                  $task_id = $_POST['task_id'];
                   $data = ['status' => '3'];
-                  Task::update($data, $_SESSION['Auth']->id);
+                  Task::update($data, $task_id);
                   header("location: /user");
                 }
                 ?>
@@ -213,82 +243,128 @@ if (!isset($_SESSION['Auth'])) {
               <div class="card card-light card-outline">
                 <div class="card-header">
                   <div class="card-tools">
-                    </a>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
           <div class="card card-row card-secondary">
             <div class="card-header">
               <h3 class="card-title">
-                Tugatish
+                Yakun
               </h3>
             </div>
             <div class="card-body">
               <div class="card card-info card-outline">
                 <div class="card-header">
-
-
                   <h1></h1>
                   <?php
                   $vazifalar = Task::gettask($_SESSION['Auth']->id, 3);
-                  foreach ($vazifalar as $vazifa) { ?>
-                    <h5><?= $vazifa['title'] ?></h5>
-                    <div class="card-body">
-                      <p>
-                        <?= $vazifa['description'] ?>
-                      </p>
-                      <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
-                    </div>
-                  <?php }
-                  ?>
-                  <form action="/user" method="post">
-                    <button type="submit" name="tugallash" class="btn btn-primary">Tugallash</button>
-                  </form>
-
+                  if (!empty($vazifalar)) { ?>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Rasm</th>
+                          <th>Amallar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php foreach ($vazifalar as $vazifa) { ?>
+                          <tr>
+                            <td><?= $vazifa['title'] ?></td>
+                            <td><?= $vazifa['description'] ?></td>
+                            <td>
+                              <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
+                            </td>
+                            <td>
+                              <form action="/user" method="post">
+                                <input type="hidden" name="task_id" value="<?= $vazifa['id'] ?>">
+                                <button type="submit" name="topshir" class="btn btn-success">Tugallash</button>
+                              </form>
+                            </td>
+                          </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  <?php } else { ?>
+                    <p>Hozirda yakunlash uchun topshiriq mavjud emas!</p>
+                  <?php } ?>
                 </div>
                 <?php
-                if (isset($_POST['tugallash'])) {
+                if (isset($_POST['topshir'])) {
+                  $task_id = $_POST['task_id'];
                   $data = ['status' => '4'];
-                  Task::update($data, $_SESSION['Auth']->id);
-            
+                  Task::update($data, $task_id);
+                  header("location: /user");
                 }
                 ?>
               </div>
               <div class="card card-light card-outline">
                 <div class="card-header">
                   <div class="card-tools">
-                    </a>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
-          <div class="card card-row card-success">
+          <div class="card card-row card-secondary">
             <div class="card-header">
               <h3 class="card-title">
                 Done
               </h3>
             </div>
             <div class="card-body">
-              <div class="card card-primary card-outline">
+              <div class="card card-info card-outline">
                 <div class="card-header">
-                  <h5 class="card-title">
-                    <?php
-                    if(isset($_POST['tugallash']))
-                    {
-                      echo"Sizning vazifaningi tekshirilmoqda...";
-                    }
-                    ?>
-                  </h5>
+                  <h1></h1>
+                  <?php
+                  $vazifalar = Task::gettask($_SESSION['Auth']->id, 4);
+                  if (!empty($vazifalar)) { ?>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Rasm</th>
+                          <th>Amallar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php foreach ($vazifalar as $vazifa) { ?>
+                          <tr>
+                            <td><?= $vazifa['title'] ?></td>
+                            <td><?= $vazifa['description'] ?></td>
+                            <td>
+                              <img src="<?php echo "rasm/" . $vazifa['img'] ?>" alt="" width="100px">
+                            </td>
+                            <td>
+                              <form action="/user" method="post">
+                                <input type="hidden" name="task_id" value="<?= $vazifa['id'] ?>">
+                                <button type="submit" name="yakun" class="btn btn-success">Tekshirilmoqda...</button>
+                              </form>
+                            </td>
+                          </tr>
+                        <?php } ?>
+                      </tbody>
+                    </table>
+                  <?php } else { ?>
+                    <p>Ma'lumot mavjud emas!</p>
+                  <?php } ?>
+                </div>
+                <?php
+                if (isset($_POST['yakun'])) {
+                  $task_id = $_POST['task_id'];
+                  $data = ['status' => '4'];
+                  Task::update($data, $task_id);
+                  header("location: /user");
+                }
+                ?>
+              </div>
+              <div class="card card-light card-outline">
+                <div class="card-header">
                   <div class="card-tools">
-                    <a href="#" class="btn btn-tool btn-link">#1</a>
-                    <a href="#" class="btn btn-tool">
-                      <i class="fas fa-pen"></i>
-                    </a>
                   </div>
                 </div>
               </div>

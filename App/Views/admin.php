@@ -267,60 +267,87 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
-                <tr>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">ID</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Title</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Description</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Image</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Users</th>
-                  <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Status</th>
-                </tr>
-                <?php
-                if (isset($_GET['task1'])) {
-                  $tasks = Task::taskall(1);
-                } elseif (isset($_GET['task2'])) {
-                  $tasks = Task::taskall(2);
-                } elseif (isset($_GET['task3'])) {
-                  $tasks = Task::taskall(3);
-                } elseif (isset($_GET['task4'])) {
-                  $tasks = Task::taskall(4);
-                } else {
-                  $tasks = Task::taskall(1);
-                }
-                foreach ($tasks as $task) { ?>
-                  <tr>
-                    <td style="border: 1px solid black; padding: 10px;"><?= $task['id'] ?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?= $task['title'] ?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?= $task['description'] ?></td>
-                    <td style="border: 1px solid black; padding: 10px;"><img src="<?php echo "rasm/" . $task['img'] ?>" width="100px"></td>
-                    <td style="border: 1px solid black; padding: 10px;"><?= $task['name'] ?></td>
-                    <td style="border: 1px solid black; padding: 10px;">
-                      <?php
-                      // Rangni statusga qarab belgilash
-                      $color = ($task['status'] == 1) ? '#2196F3' : (($task['status'] == 2) ? '#FFC107' : (($task['status'] == 3) ? '#4CAF50' : '#FF5722'));
-                      ?>
+            <table style="width: 100%; border-collapse: collapse; border: 1px solid black;">
+  <tr>
+    <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">ID</th>
+    <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Title</th>
+    <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Description</th>
+    <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Image</th>
+    <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Users</th>
+    <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Status</th>
+    <?php if (isset($_GET['task4'])) {  ?>
+        <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Accept</th>
+        <th style="border: 1px solid black; padding: 10px; background-color: #f2f2f2;">Reject</th>
+    <?php } ?>
+  </tr>
 
-                      <span style="
-    background-color: <?php echo $color; ?>; /* Statusga qarab fon rangi */
-    color: white; /* Oq rangli matn */
-    padding: 5px 10px; /* Ichki chekka (padding) */
-    border-radius: 5px; /* Burchaklarni yumaloqlash */
-    text-align: center; /* Matnni markazlash */
-    display: inline-block; /* Elementning tugma ko'rinishda bo'lishi uchun */
-  ">
-                        <?php
-                        echo ($task['status'] == 1) ? 'Vazifa berilgan' : (($task['status'] == 2) ? 'Qabul qilingan' : (($task['status'] == 3) ? 'Topshirilgan' : 'Jarayonda'));
-                        ?>
-                      </span>
-                    </td>
+  <?php
+  if (isset($_GET['task1'])) {
+    $tasks = Task::taskall(1);
+  } elseif (isset($_GET['task2'])) {
+    $tasks = Task::taskall(2);
+  } elseif (isset($_GET['task3'])) {
+    $tasks = Task::taskall(3);
+  } elseif (isset($_GET['task4'])) {
+    $tasks = Task::taskall(4);
+  } else {
+    $tasks = Task::taskall(1);
+  }
 
+  foreach ($tasks as $task) { ?>
+    <tr>
+      <td style="border: 1px solid black; padding: 10px;"><?= $task['id'] ?></td>
+      <td style="border: 1px solid black; padding: 10px;"><?= $task['title'] ?></td>
+      <td style="border: 1px solid black; padding: 10px;"><?= $task['description'] ?></td>
+      <td style="border: 1px solid black; padding: 10px;"><img src="<?php echo "rasm/" . $task['img'] ?>" width="100px"></td>
+      <td style="border: 1px solid black; padding: 10px;"><?= $task['name'] ?></td>
+      <td style="border: 1px solid black; padding: 10px;">
+        <?php
+        // Rangni statusga qarab belgilash
+        $color = ($task['status'] == 1) ? '#2196F3' : (($task['status'] == 2) ? '#FFC107' : (($task['status'] == 3) ? '#4CAF50' : '#FF5722'));
+        ?>
 
-                  </tr>
+        <span style="
+          background-color: <?php echo $color; ?>; 
+          color: white;
+          padding: 5px 10px;
+          border-radius: 5px; 
+          text-align: center; 
+          display: inline-block;
+        ">
+          <?php
+          echo ($task['status'] == 1) ? 'Vazifa berilgan' : (($task['status'] == 2) ? 'Qabul qilingan' : (($task['status'] == 3) ? 'Topshirilgan' : 'Jarayonda'));
+          ?>
+        </span>
+      </td>
+      
+      <?php if ($task['status'] == 4) { ?>
+        <td style="border: 1px solid black; padding: 10px; text-align: center;">
+          <a href="/admin?task_id=<?= $task['id'] ?>" style="" class="btn btn-primary">Accept</a>
+        </td>
+        <td style="border: 1px solid black; padding: 10px; text-align: center;">
+          <a href="/admin?reject=<?= $task['id'] ?>" style="" class="btn btn-danger">Reject</a>
+        </td>
+      <?php } ?>
+    </tr>
+  <?php }
+  ?>
+</table>
+<?php
+if (isset($_GET['task_id'])) {
+  $task_id = $_GET['task_id'];
+  $data = ['status' => '5'];
+  Task::update($data, $task_id);
+  header("location: /admin");
+}
+if (isset($_GET['reject'])) {
+  $task_id = $_GET['reject'];
+  $data = ['status' => '1'];
+  Task::update($data, $task_id);
+  header("location: /admin");
+}
+?>
 
-                <?php }
-                ?>
-              </table>
             </div>
           </div>
           <!-- Left col -->

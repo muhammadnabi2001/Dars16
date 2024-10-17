@@ -49,7 +49,7 @@ class Model extends Database
 
         $cleanedString = implode(", ", $setParts);
 
-        $query = "UPDATE " . static::$table . " SET {$cleanedString} WHERE user_id = :id";
+        $query = "UPDATE " . static::$table . " SET {$cleanedString} WHERE id = :id";
 
         $params[':id'] = $id;
 
